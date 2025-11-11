@@ -1,11 +1,9 @@
 package br.com.pedro.__course_challenge_api.course.controller;
 
 import br.com.pedro.__course_challenge_api.course.requests.CreateCourseRequest;
+import br.com.pedro.__course_challenge_api.course.requests.EditCourseRequest;
 import br.com.pedro.__course_challenge_api.course.responses.GetAllCoursesResponse;
-import br.com.pedro.__course_challenge_api.course.useCases.CreateCourseUseCase;
-import br.com.pedro.__course_challenge_api.course.useCases.DeleteCourseByIdUseCase;
-import br.com.pedro.__course_challenge_api.course.useCases.GetAllCoursesUseCase;
-import br.com.pedro.__course_challenge_api.course.useCases.PatchCourseUseCase;
+import br.com.pedro.__course_challenge_api.course.useCases.*;
 import br.com.pedro.__course_challenge_api.exception.dto.MessageDTO;
 import br.com.pedro.__course_challenge_api.exception.errors.CourseNotFound;
 import jakarta.validation.Valid;
@@ -31,6 +29,9 @@ public class CourseController {
 
     @Autowired
     PatchCourseUseCase patchCourseUseCase;
+
+    @Autowired
+    EditCourseUseCase editCourseUseCase;
 
     @PostMapping()
     public ResponseEntity<Object> create(@Valid @RequestBody CreateCourseRequest request){
@@ -67,9 +68,9 @@ public class CourseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> edit(@PathVariable String id){
+    public ResponseEntity<Object> edit(@PathVariable String id, @Valid @RequestBody EditCourseRequest request){
         try {
-
+            this.editCourseUseCase.execute(UUID.fromString(id), request);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (CourseNotFound ex){
             MessageDTO errorMessage = new MessageDTO(ex.getMessage());
