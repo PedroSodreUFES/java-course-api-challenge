@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.Length;
 @NoArgsConstructor
 public class CreateCourseRequest {
 
-    @Length(min = 3, max = 50, message = "O campo [name] deve ter entre 3 e 20 caracteres.")
+    @Length(min = 2, max = 50, message = "O campo [name] deve ter entre 2 e 20 caracteres.")
     @NotBlank
     private String name;
 

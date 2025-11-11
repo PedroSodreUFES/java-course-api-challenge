@@ -16,7 +16,7 @@ public class EditCourseUseCase {
     @Autowired
     CourseRepository courseRepository;
 
-    public void execute(UUID id, EditCourseRequest request) {
+    public void execute(UUID id, EditCourseRequest request) throws CourseNotFound {
         CourseEntity entity = this.courseRepository.findById(id).orElseThrow(
                 CourseNotFound::new
         );

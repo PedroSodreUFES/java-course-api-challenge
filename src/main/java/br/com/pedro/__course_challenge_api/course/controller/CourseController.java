@@ -5,6 +5,7 @@ import br.com.pedro.__course_challenge_api.course.requests.EditCourseRequest;
 import br.com.pedro.__course_challenge_api.course.responses.GetAllCoursesResponse;
 import br.com.pedro.__course_challenge_api.course.useCases.*;
 import br.com.pedro.__course_challenge_api.exception.dto.MessageDTO;
+import br.com.pedro.__course_challenge_api.exception.errors.CourseAlreadyExist;
 import br.com.pedro.__course_challenge_api.exception.errors.CourseNotFound;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,13 @@ public class CourseController {
 
     @PostMapping()
     public ResponseEntity<Object> create(@Valid @RequestBody CreateCourseRequest request){
-        this.createCourseUseCase.execute(request);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        try {
+            this.createCourseUseCase.execute(request);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (CourseAlreadyExist ex) {
+            MessageDTO errorMessage = new MessageDTO(ex.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
+        }
     }
 
     @GetMapping()
