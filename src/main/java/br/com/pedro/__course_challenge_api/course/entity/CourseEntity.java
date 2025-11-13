@@ -1,5 +1,6 @@
 package br.com.pedro.__course_challenge_api.course.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,8 +26,13 @@ public class CourseEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Schema(example = "Pedro Sodré")
     private String professor;
+
+    @Schema(example = "Next")
     private String nome;
+
+    @Schema(example = "Front-end")
     private String category;
 
     private Boolean active;
