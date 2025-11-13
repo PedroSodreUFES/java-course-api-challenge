@@ -26,5 +26,6 @@ public class CreateCourseRequest {
 
     @Pattern(regexp = "(Back-end|Front-end)", message = "O campo [category] deve ser Back-end ou Front-end.")
     @NotBlank
+    @Schema(example = "Back-end")
     private String category;
 }

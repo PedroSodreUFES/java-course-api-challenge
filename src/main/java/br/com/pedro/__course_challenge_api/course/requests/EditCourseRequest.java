@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EditCourseRequest {
     @Pattern(regexp = "^(|.{2,50})", message = "O campo [name] deve ter entre 2 e 50 caracteres.")
-    @Schema(example = "C#")
+    @Schema(example = "TailwindCSS")
     private String name = "";
 
     @Pattern(regexp = "^(|.{3,50})", message = "O campo [professor] deve ter entre 3 e 50 caracteres.")
@@ -19,5 +19,6 @@ public class EditCourseRequest {
     private String professor = "";
 
     @Pattern(regexp = "(Back-end|Front-end|)", message = "O campo [category] deve ser Back-end ou Front-end.")
+    @Schema(example = "Front-end")
     private String category = "";
 }
